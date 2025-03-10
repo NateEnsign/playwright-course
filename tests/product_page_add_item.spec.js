@@ -1,11 +1,19 @@
-import {test} from '@playwright/test'
+import { test, expect } from "@playwright/test";
 
-test("Product Page Add To Basket", async ({page}) => {
-    await page.goto("localhost:2221")
+test("Product Page Add To Basket", async ({ page }) => {
+  await page.goto("/");
 
-    const addToBasketButton = page.locator('div').filter({ hasText: /^499\$Add to Basket$/ }).getByRole('button')
-    await addToBasketButton.waitFor() //using .waitFor() gives a much more clear error message for why the test failed
-    await addToBasketButton.click()
+  const addToBasketButton = page.locator('[data-qa="product-button"]').first();
+  const basketCounter = page.locator('[data-qa="header-basket-count"]');
 
-    await page.pause()
-})
+  await addToBasketButton.waitFor(); //using .waitFor() gives a much more clear error message for why the test failed
+  await expect(addToBasketButton).toHaveText("Add to Basket");
+  await expect(basketCounter).toHaveText("0");
+
+  await addToBasketButton.click();
+
+  await expect(addToBasketButton).toHaveText("Remove from Basket");
+  await expect(basketCounter).toHaveText("1");
+
+  await page.pause();
+});
