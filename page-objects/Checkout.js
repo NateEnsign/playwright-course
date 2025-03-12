@@ -13,8 +13,11 @@ export class Checkout {
         await this.basketItemPrice.first().waitFor();
         const allPrice = await this.basketItemPrice.allInnerTexts();
         const numberPrices = allPrice.map((el) => +el.replace('$',''));
+        const smallestPrice = Math.min(...numberPrices);
+        const smallestPriceInx = numberPrices.indexOf(smallestPrice);
+        await this.basketItemRemoveButton.nth(smallestPriceInx).waitFor()
+        await this.basketItemRemoveButton.nth(smallestPriceInx).click();
 
-        console.warn({numberPrices});
         await this.page.pause()
     }
 }
