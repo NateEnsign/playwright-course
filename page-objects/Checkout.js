@@ -9,6 +9,14 @@ export class Checkout {
     }
 
     removeCheapestProduct = async () => {
+        await this.basketCards.first().waitFor();
+        await this.basketItemPrice.first().waitFor();
+        const allPriceTexts = await this.basketItemPrice.allInnerTexts();
+        const justNumbers = allPriceTexts.map((el) => {
+            const withoutDollarSign = el.replace('$', '')
+            return +withoutDollarSign;
+        })
+        console.warn({justNumbers});
         await this.page.pause()
     }
 }
