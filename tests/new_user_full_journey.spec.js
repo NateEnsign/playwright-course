@@ -1,6 +1,7 @@
 import { test } from "@playwright/test";
 import { ProductPage } from "../page-objects/ProductPage";
 import { Navigation } from '../page-objects/Navigation';
+import { Checkout } from '../page-objects/Checkout';
 
 test.only("New user full end-to-end test journey", async ({ page }) => {
   const productPage = new ProductPage(page);
@@ -10,5 +11,9 @@ test.only("New user full end-to-end test journey", async ({ page }) => {
   await productPage.addProductToBasket(2);
   const navigation = new Navigation(page);
   await navigation.goToCheckout();
-  await page.pause();
+
+  const checkout = new Checkout(page);
+  await checkout.removeCheapestProduct();
+
+  
 });
