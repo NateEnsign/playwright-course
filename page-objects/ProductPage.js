@@ -6,7 +6,7 @@ export class ProductPage {
         this.page = page;
 
         this.addButtons = page.locator('[data-qa="product-button"]');
-        
+        this.sortDropdown = page.locator('[data-qa="sort-dropdown"]');
     }
     
     visit = async () => {
@@ -24,5 +24,11 @@ export class ProductPage {
         const basketCountAfterAdding = await navigation.getBasketCount();
         expect(basketCountAfterAdding).toBeGreaterThan(basketCountBeforeAdding)
 
+    }
+
+    sortByCheapest = async () => {
+        await this.sortDropdown.waitFor();
+        await this.sortDropdown.selectOption("price-asc")
+        await this.page.pause();
     }
 }
