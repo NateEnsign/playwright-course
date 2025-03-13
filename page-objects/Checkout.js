@@ -24,6 +24,6 @@ export class Checkout {
     await specificRemoveBtn.click();
     await expect(this.basketCards).toHaveCount(itemsBeforeRemoval - 1);
 
-    await this.page.pause();
+    // await this.page.pause();
   };
 }

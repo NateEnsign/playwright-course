@@ -9,7 +9,7 @@ export class Navigation {
     getBasketCount = async () => {
         await this.basketCounter.waitFor();
         const text = await this.basketCounter.innerText();
-        return +text;
+        return parseInt(text, 10);
     }
 
     goToCheckout = async () => {
