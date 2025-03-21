@@ -9,7 +9,9 @@ export class Checkout {
     this.basketItemRemoveButton = page.locator(
       '[data-qa="basket-card-remove-item"]'
     );
-  }
+    this.continueToCheckoutBtn = page.locator('[data-qa="continue-to-checkout"]');
+
+  };
 
   removeCheapestProduct = async () => {
     await this.basketCards.first().waitFor();
@@ -26,4 +28,11 @@ export class Checkout {
 
     // await this.page.pause();
   };
+
+  continueToCheckout = async () => {
+    await this.continueToCheckoutBtn.waitFor();
+    await this.continueToCheckoutBtn.click();
+    await this.page.waitForURL(/\/login/, {timeout: 3000});
+  }
+
 }

@@ -16,7 +16,7 @@ export class ProductPage {
 
     addProductToBasket = async (index) => {
         const specificAddButton = this.addButtons.nth(index)
-        await specificAddButton.waitFor({timeout: 10000});
+        await specificAddButton.waitFor({timeout: 5000});
         await expect(specificAddButton).toHaveText("Add to Basket");
         const navigation = new Navigation(this.page);
         const basketCountBeforeAdding = await navigation.getBasketCount();
@@ -29,11 +29,11 @@ export class ProductPage {
 
     sortByCheapest = async () => {
         await this.sortDropdown.waitFor();
-        // await this.productTitle.waitFor();
+        await this.productTitle.first().waitFor();
         const productTitlesBeforeSort = await this.productTitle.allInnerTexts();
         await this.sortDropdown.selectOption("price-asc");
         const productTitlesAfterSort = await this.productTitle.allInnerTexts();
         expect(productTitlesBeforeSort).not.toEqual(productTitlesAfterSort);
-        await this.page.pause();
+        // await this.page.pause();
     }
 }
