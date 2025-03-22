@@ -3,6 +3,7 @@ import { ProductPage } from "../page-objects/ProductPage";
 import { Navigation } from '../page-objects/Navigation';
 import { Checkout } from '../page-objects/Checkout';
 import { LoginPage } from "../page-objects/LoginPage";
+import { RegisterPage} from "../page-objects/RegisterPage";
 
 test.only("New user full end-to-end test journey", async ({ page }) => {
   const productPage = new ProductPage(page);
@@ -20,6 +21,9 @@ test.only("New user full end-to-end test journey", async ({ page }) => {
 
   const login = new LoginPage(page);
   await login.switchToRegister();
+
+  const registerPage = new RegisterPage(page);
+  await registerPage.signUpAsNewUser();
 
 //   await page.pause();
   
