@@ -9,7 +9,6 @@ export class RegisterPage {
     }
 
     signUpAsNewUser = async (email,password) => {
-        
         await this.emailInput.waitFor();
         await this.emailInput.fill(email);
 
@@ -18,7 +17,5 @@ export class RegisterPage {
 
         await this.regsiterBtn.waitFor();
         await this.regsiterBtn.click();
-
-        await this.page.pause();
     }
 }
