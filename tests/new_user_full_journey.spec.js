@@ -5,6 +5,8 @@ import { Checkout } from '../page-objects/Checkout';
 import { LoginPage } from "../page-objects/LoginPage";
 import { RegisterPage} from "../page-objects/RegisterPage";
 
+import { v4 as uuidv4 } from 'uuid'; 
+
 test.only("New user full end-to-end test journey", async ({ page }) => {
   const productPage = new ProductPage(page);
   await productPage.visit();
@@ -23,7 +25,9 @@ test.only("New user full end-to-end test journey", async ({ page }) => {
   await login.switchToRegister();
 
   const registerPage = new RegisterPage(page);
-  await registerPage.signUpAsNewUser();
+  const email = uuidv4() + '@gmail.com';
+  const password = uuidv4();
+  await registerPage.signUpAsNewUser(email,password);
 
 //   await page.pause();
   
