@@ -42,6 +42,16 @@ export class DeliveryDetails {
         await expect(this.savedAddressContainer).toHaveCount(addressCountBeforeSave + 1);
         await this.savedFirstName.first().waitFor();
         expect(await this.savedFirstName.first().innerText()).toBe(await this.firstNameInput.inputValue());
+        await this.savedLastName.first().waitFor();
+        expect(await this.savedLastName.first().innerText()).toBe(await this.lastNameInput.inputValue());
+        await this.savedStreet.first().waitFor();
+        expect(await this.savedStreet.first().innerText()).toBe(await this.streetInput.inputValue());
+        await this.savedPostalCode.first().waitFor();
+        expect(await this.savedPostalCode.first().innerText()).toBe(await this.postalCodeInput.inputValue());
+        await this.savedCity.first().waitFor();
+        expect(await this.savedCity.first().innerText()).toBe(await this.cityInput.inputValue());
+        await this.savedCountry.first().waitFor();
+        expect(await this.savedCountry.first().innerText()).toBe(await this.countryDropdown.inputValue());
 
 
         await this.page.pause();
