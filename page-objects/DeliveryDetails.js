@@ -12,6 +12,12 @@ export class DeliveryDetails {
         this.countryDropdown = page.locator('[data-qa="country-dropdown"]');
         this.saveAddressBtn = page.locator('[data-qa="save-address-button"]');
         this.savedAddressContainer = page.locator('[data-qa="saved-address-container"]');
+        this.savedFirstName = page.locator('[data-qa="saved-address-firstName"]');
+        this.savedLastName = page.locator('[data-qa="saved-address-lastName"]');
+        this.savedStreet = page.locator('[data-qa="saved-address-street"]');
+        this.savedPostalCode = page.locator('[data-qa="saved-address-postcode"]');
+        this.savedCity = page.locator('[data-qa="saved-address-city"]');
+        this.savedCountry = page.locator('[data-qa="saved-address-country"]');
     }
 
     fillDetails = async (userAddress) => {
@@ -34,6 +40,10 @@ export class DeliveryDetails {
         await this.saveAddressBtn.waitFor();
         await this.saveAddressBtn.click();
         await expect(this.savedAddressContainer).toHaveCount(addressCountBeforeSave + 1);
+        await this.savedFirstName.first().waitFor();
+        expect(await this.savedFirstName.first().innerText()).toBe(await this.firstNameInput.inputValue());
+
+
         await this.page.pause();
     }
 }
