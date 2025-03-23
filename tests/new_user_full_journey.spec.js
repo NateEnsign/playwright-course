@@ -7,6 +7,7 @@ import { Checkout } from "../page-objects/Checkout";
 import { LoginPage } from "../page-objects/LoginPage";
 import { RegisterPage } from "../page-objects/RegisterPage";
 import { DeliveryDetails } from "../page-objects/DeliveryDetails";
+import { deliveryDetails as userAddress } from "../data/deliveryDetails";
 
 test.only("New user full end-to-end test journey", async ({ page }) => {
   const productPage = new ProductPage(page);
@@ -31,7 +32,7 @@ test.only("New user full end-to-end test journey", async ({ page }) => {
   await registerPage.signUpAsNewUser(email, password);
 
   const deliveryDetails = new DeliveryDetails(page);
-  await deliveryDetails.fillDetails();
+  await deliveryDetails.fillDetails(userAddress);
 
   //   await page.pause();
 });
