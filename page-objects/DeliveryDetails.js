@@ -1,3 +1,5 @@
+import { expect } from '@playwright/test';
+
 export class DeliveryDetails {
     constructor (page){
         this.page = page;
@@ -8,6 +10,8 @@ export class DeliveryDetails {
         this.postalCodeInput = page.getByRole('textbox', { name: 'Post code' });
         this.cityInput = page.getByRole('textbox', { name: 'City' });
         this.countryDropdown = page.locator('[data-qa="country-dropdown"]');
+        this.saveAddressBtn = page.locator('[data-qa="save-address-button"]');
+        this.savedAddressContainer = page.locator('[data-qa="saved-address-container"]');
     }
 
     fillDetails = async (userAddress) => {
@@ -23,6 +27,13 @@ export class DeliveryDetails {
         await this.cityInput.fill(userAddress.city);
         await this.countryDropdown.waitFor();
         await this.countryDropdown.selectOption(userAddress.country);
+    }
+
+    saveDetails = async (userAddress) => {
+        const addressCountBeforeSave = await this.savedAddressContainer.count();
+        await this.saveAddressBtn.waitFor();
+        await this.saveAddressBtn.click();
+        await expect(this.savedAddressContainer).toHaveCount(addressCountBeforeSave + 1);
         await this.page.pause();
     }
 }
